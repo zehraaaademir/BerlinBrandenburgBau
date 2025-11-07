@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baupotential Berlin & Brandenburg - Analyse 2024</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .badges {
+            margin: 1rem 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0 0.3rem;
+            font-size: 0.9rem;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        section {
+            background: white;
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 2rem 0 1rem;
+            font-size: 1.4rem;
+        }
+        
+        h4 {
+            color: var(--secondary);
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.7rem;
+            font-size: 1.05rem;
+        }
+        
+        .region-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .region-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .region-card.brandenburg {
+            border-left-color: var(--success);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .project-card {
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+        
+        .project-location {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .project-details {
+            margin-bottom: 1rem;
+        }
+        
+        .project-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-detail span:first-child {
+            font-weight: 500;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .chart-placeholder {
+            background: var(--light);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .data-source {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: #7f8c8d;
+            border-top: 1px solid #e1e4e8;
+            background: white;
+        }
+        
+        @media (max-width: 768px) {
+            .region-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .stat {
+                min-width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="badges">
+                <span class="badge">Berlin</span>
+                <span class="badge">Brandenburg</span>
+                <span class="badge">Baupotential 2024</span>
+            </div>
+            <h1>Baupotential Berlin & Brandenburg</h1>
+            <p class="subtitle">Umfassende Analyse der Bau- und Entwicklungspotenziale in der Hauptstadtregion bis 2030+</p>
+            
+            <div class="header-stats">
+                <div class="stat">
+                    <span class="stat-number">300.000+</span>
+                    <span class="stat-label">Benötigte Wohnungen bis 2030</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Großbauprojekte</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">25 Mrd. €+</span>
+                    <span class="stat-label">Investitionsvolumen</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">2040+</span>
+                    <span class="stat-label">Zeithorizont</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section id="einleitung">
+            <h2><i class="fas fa-building"></i> Einleitung</h2>
+            <p>Die Metropolregion Berlin-Brandenburg gehört zu den dynamischsten Wachstumsregionen Europas. Der anhaltende Bevölkerungszuwachs, wirtschaftliche Entwicklung und infrastrukturelle Herausforderungen schaffen ein enormes Baupotential, das bis 2040 und darüber hinaus andauern wird.</p>
+            <p>Diese Analyse bietet einen umfassenden Überblick über die Bau- und Entwicklungspotenziale in beiden Ländern, basierend auf offiziellen Daten der Senatsverwaltungen, Landesregierungen und Forschungsinstitute.</p>
+        </section>
+
+        <section id="gesamtpotenzial">
+            <h2><i class="fas fa-chart-line"></i> Gesamtpotenzial der Region</h2>
+            
+            <div class="region-comparison">
+                <div class="region-card">
+                    <h3>Berlin</h3>
+                    <ul>
+                        <li><strong>Wohnungsbedarf bis 2030:</strong> 200.000+ neue Wohnungen</li>
+                        <li><strong>Aktuelle Baurate:</strong> ~15.000 Wohnungen/Jahr</li>
+                        <li><strong>Erforderliche Baurate:</strong> 20.000 Wohnungen/Jahr</li>
+                        <li><strong>Investitionsvolumen:</strong> Mehrere Milliarden Euro</li>
+                        <li><strong>Schwerpunkt:</strong> Nachverdichtung, Brachflächen, Großprojekte</li>
+                    </ul>
+                </div>
+                
+                <div class="region-card brandenburg">
+                    <h3>Brandenburg</h3>
+                    <ul>
+                        <li><strong>Wohnungsbedarf bis 2030:</strong> 100.000+ neue Wohnungen</li>
+                        <li><strong>Spezifische Herausforderung:</strong> Unterschiedliche Dynamik (Speckgürtel vs. ländliche Räume)</li>
+                        <li><strong>Schwerpunkte:</strong> Speckgürtel, Gewerbegebiete, Energieinfrastruktur</li>
+                        <li><strong>Infrastruktur:</strong> Verkehrsanbindungen, Breitbandausbau</li>
+                        <li><strong>Energie:</strong> Windkraft- und Solarausbau</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h4>Vergleich der Wohnungsbaupotenziale</h4>
+                <div class="chart-placeholder">
+                    [Hier würde ein Diagramm zur Verteilung der Wohnungsbaupotenziale erscheinen]
+                </div>
+                <p class="data-source">Quelle: Amt für Statistik Berlin-Brandenburg, Landesentwicklungsplan Brandenburg</p>
+            </div>
+        </section>
+
+        <section id="wohnungsbau">
+            <h2><i class="fas fa-home"></i> Wohnungsbau</h2>
+            
+            <h3>Berlin</h3>
+            <p>Der Wohnungsbau stellt die größte Herausforderung und das größte Potenzial in Berlin dar. Basierend auf dem <strong>Stadtentwicklungsplan Wohnen 2030 (STEP Wohnen)</strong>:</p>
+            
+            <h4>Flächenpotenziale in Berlin:</h4>
+            <ul>
+                <li><strong>Nachverdichtung:</strong> 40.000 - 60.000 Wohnungen</li>
+                <li><strong>Brachflächen:</strong> 30.000 - 50.000 Wohnungen</li>
+                <li><strong>Neue Quartiere:</strong> 60.000 - 80.000 Wohnungen</li>
+                <li><strong>Aufstockungen:</strong> 10.000 - 20.000 Wohnungen</li>
+            </ul>
+            
+            <h3>Brandenburg</h3>
+            <p>In Brandenburg konzentriert sich der Wohnungsbedarf vor allem auf den Speckgürtel um Berlin, während ländliche Regionen andere Herausforderungen haben:</p>
+            
+            <h4>Regionale Schwerpunkte in Brandenburg:</h4>
+            <ul>
+                <li><strong>Speckgürtel-Gemeinden:</strong> Potsdam, Königs Wusterhausen, Blankenfelde-Mahlow, Teltow, Stahnsdorf</li>
+                <li><strong>Städtische Zentren:</strong> Cottbus, Brandenburg an der Havel, Frankfurt (Oder)</li>
+                <li><strong>Universitätsstädte:</strong> Potsdam, Cottbus, Eberswalde</li>
+            </ul>
+            
+            <div class="chart-container">
+                <h4>Geografische Verteilung des Wohnungsbedarfs</h4>
+                <div class="chart-placeholder">
+                    [Hier würde eine Karte mit den Wohnungsbaupotenzialen in Berlin und Brandenburg erscheinen]
+                </div>
+                <p class="data-source">Quelle: Landesentwicklungsplan Brandenburg, STEP Wohnen Berlin</p>
+            </div>
+        </section>
+
+        <section id="infrastruktur">
+            <h2><i class="fas fa-road"></i> Verkehrsinfrastruktur</h2>
+            
+            <h3>Gemeinsame Projekte (Berlin & Brandenburg)</h3>
+            <p>Die Verkehrsinfrastruktur ist ein zentraler Schlüssel für die Entwicklung der gesamten Region:</p>
+            
+            <h4>i2030-Schienenprogramm</h4>
+            <ul>
+                <li><strong>Ausbau S-Bahn-Ring:</strong> Kapazitätserweiterung und Taktverdichtung</li>
+                <li><strong>Neue Regionalbahnstrecken:</strong> Bessere Anbindung des Umlands</li>
+                <li><strong>Digitalisierung des Bahnbetriebs:</strong> ETCS-Ausrüstung</li>
+                <li><strong>Verknüpfung Berlin-Brandenburg:</strong> Grenzüberschreitende Projekte</li>
+            </ul>
+            
+            <h4>Straßeninfrastruktur</h4>
+            <ul>
+                <li><strong>Sanierung von Brücken:</strong> 120+ Brücken in Berlin, zahlreiche in Brandenburg</li>
+                <li><strong>Ausbau A100:</strong> 16. Bauabschnitt in Berlin</li>
+                <li><strong>Bundesstraßen in Brandenburg:</strong> Ausbau B96, B101, B115</li>
+                <li><strong>Radschnellwege:</strong> Regionale Netzverdichtung</li>
+            </ul>
+            
+            <h3>Brandenburg-spezifische Projekte</h3>
+            <ul>
+                <li><strong>Lückenschlüsse im ÖPNV:</strong> Bessere Anbindung ländlicher Räume</li>
+                <li><strong>Ausbau Regionalflughäfen:</strong> BER-Zubringer</li>
+                <li><strong>Wasserstraßen:</strong> Modernisierung von Schleusen und Kanälen</li>
+            </ul>
+        </section>
+
+        <section id="soziale-infrastruktur">
+            <h2><i class="fas fa-school"></i> Soziale Infrastruktur</h2>
+            
+            <div class="region-comparison">
+                <div class="region-card">
+                    <h3>Berlin</h3>
+                    <h4>Berliner Schulbauoffensive</h4>
+                    <ul>
+                        <li><strong>60 Schulen</strong> in Neubau oder Sanierung</li>
+                        <li><strong>Investition:</strong> 6,5 Mrd. Euro</li>
+                        <li><strong>Zeitraum:</strong> bis 2035</li>
+                    </ul>
+                    
+                    <h4>Weitere Projekte:</h4>
+                    <ul>
+                        <li>Kitas und Kindergärten</li>
+                        <li>Sportstätten und Schwimmhallen</li>
+                        <li>Gesundheitszentren und Krankenhäuser</li>
+                        <li>Bibliotheken und kulturelle Einrichtungen</li>
+                    </ul>
+                </div>
+                
+                <div class="region-card brandenburg">
+                    <h3>Brandenburg</h3>
+                    <h4>Landesschulbauprogramm</h4>
+                    <ul>
+                        <li>Modernisierung und Neubau von Schulen</li>
+                        <li>Schwerpunkt: Digitalisierung der Schulen</li>
+                        <li>Ganztagsausbau an Grundschulen</li>
+                    </ul>
+                    
+                    <h4>Regionale Gesundheitsversorgung</h4>
+                    <ul>
+                        <li>Stärkung der Kliniken in ländlichen Räumen</li>
+                        <li>Ausbau medizinischer Versorgungszentren</li>
+                        <li>Telemedizinische Angebote</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="energie-infrastruktur">
+            <h2><i class="fas fa-bolt"></i> Energie- und Klimainfrastruktur</h2>
+            
+            <h3>Brandenburg als Energieland</h3>
+            <p>Brandenburg spielt eine zentrale Rolle für die Energieversorgung der Hauptstadtregion:</p>
+            
+            <ul>
+                <li><strong>Windkraftausbau:</strong> Vorreiter bei erneuerbaren Energien</li>
+                <li><strong>Solarparks:</strong> Flächenpotenzial auf ehemaligen Militär- und Tagebauflächen</li>
+                <li><strong>Wasserstoff-Infrastruktur:</strong> Pilotprojekte in der Lausitz</li>
+                <li><strong>Energiespeicher:</strong> Pumpspeicherkraftwerke und Batteriespeicher</li>
+            </ul>
+            
+            <h3>Berliner Energiewende</h3>
+            <ul>
+                <li><strong>Fernwärmeausbau:</strong> Dekarbonisierung des Wärmesektors</li>
+                <li><strong>Solardächer:</strong> Potenzial auf Gewerbe- und Wohngebäuden</li>
+                <li><strong>E-Mobilität:</strong> Ladeinfrastrukturausbau</li>
+                <li><strong>Gebäudesanierung:</strong> Energieeffizienz im Bestand</li>
+            </ul>
+            
+            <div class="chart-container">
+                <h4>Ausbau erneuerbarer Energien in Brandenburg</h4>
+                <div class="chart-placeholder">
+                    [Hier würde ein Diagramm zum Ausbau der Erneuerbaren in Brandenburg erscheinen]
+                </div>
+                <p class="data-source">Quelle: Energiestrategie 2040 Brandenburg</p>
+            </div>
+        </section>
+
+        <section id="grossprojekte">
+            <h2><i class="fas fa-hard-hat"></i> Großprojekte & Entwicklungsgebiete</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Tegel - Schumacher Quartier</div>
+                    <div class="project-location">Berlin</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Wohnungen:</span>
+                            <span>5.000+</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Zeitraum:</span>
+                            <span>2025-2035</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Investition:</span>
+                            <span>3 Mrd. €+</span>
+                        </div>
+                    </div>
+                    <p>Neues Stadtquartier auf dem ehemaligen Flughafengelände mit Wohnungen, Gewerbe und Forschung.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Urban Tech Republic</div>
+                    <div class="project-location">Berlin</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Fläche:</span>
+                            <span>200 ha</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Arbeitsplätze:</span>
+                            <span>10.000+</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Zeitraum:</span>
+                            <span>2024-2035</span>
+                        </div>
+                    </div>
+                    <p>Forschungs- und Gewerbepark für Zukunftstechnologien auf dem Tegeler Flughafengelände.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Energiepark Lausitz</div>
+                    <div class="project-location">Brandenburg</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Leistung:</span>
+                            <span>500 MW+</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Fläche:</span>
+                            <span>800 ha</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Investition:</span>
+                            <span>1 Mrd. €+</span>
+                        </div>
+                    </div>
+                    <p>Größter Solarpark Deutschlands auf ehemaligen Tagebauflächen mit Wasserstoffproduktion.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Wissenschaftscampus Potsdam-Golm</div>
+                    <div class="project-location">Brandenburg</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Forschungsfläche:</span>
+                            <span>50.000 m²</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Institute:</span>
+                            <span>20+</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Zeitraum:</span>
+                            <span>2023-2030</span>
+                        </div>
+                    </div>
+                    <p>Ausbau des Wissenschaftsparks mit Max-Planck- und Fraunhofer-Instituten.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Medienstandort Babelsberg</div>
+                    <div class="project-location">Brandenburg</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Studiofläche:</span>
+                            <span>30.000 m²</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Investition:</span>
+                            <span>300 Mio. €</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Zeitraum:</span>
+                            <span>2024-2028</span>
+                        </div>
+                    </div>
+                    <p>Erweiterung des Filmstudios Babelsberg mit modernsten Produktionstechnologien.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-title">Tesla-Werk Grünheide</div>
+                    <div class="project-location">Brandenburg</div>
+                    <div class="project-details">
+                        <div class="project-detail">
+                            <span>Fläche:</span>
+                            <span>300 ha</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Arbeitsplätze:</span>
+                            <span>12.000</span>
+                        </div>
+                        <div class="project-detail">
+                            <span>Kapazität:</span>
+                            <span>500.000 Fahrzeuge/Jahr</span>
+                        </div>
+                    </div>
+                    <p>Gigafactory mit Zuliefererpark und eigenem Bahnanschluss.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="herausforderungen">
+            <h2><i class="fas fa-exclamation-triangle"></i> Herausforderungen</h2>
+            
+            <p>Trotz des enormen Potenzials gibt es erhebliche Herausforderungen bei der Umsetzung:</p>
+            
+            <h3>Gemeinsame Herausforderungen</h3>
+            <ul>
+                <li><strong>Fachkräftemangel:</strong> Fehlende Handwerker, Ingenieure und Planer (10.000+ in Berlin)</li>
+                <li><strong>Hohe Baukosten:</strong> Steigende Material- und Energiepreise</li>
+                <li><strong>Lange Genehmigungsverfahren:</strong> Komplexe Planungs- und Genehmigungsprozesse</li>
+                <li><strong>Lieferkettenprobleme:</strong> Verzögerungen bei Baumaterialien</li>
+            </ul>
+            
+            <h3>Berlin-spezifische Herausforderungen</h3>
+            <ul>
+                <li><strong>Flächenkonkurrenz:</strong> Begrenzte verfügbare Flächen in der Innenstadt</li>
+                <li><strong>Verdichtungsproblematik:</strong> Soziale und ökologische Auswirkungen</li>
+                <li><strong>Mietenspiegel:</strong> Bezahlbarkeit von Wohnraum</li>
+            </ul>
+            
+            <h3>Brandenburg-spezifische Herausforderungen</h3>
+            <ul>
+                <li><strong>Regionale Disparitäten:</strong> Unterschiedliche Entwicklung von Speckgürtel und ländlichen Räumen</li>
+                <li><strong>Infrastrukturnachholbedarf:</strong> ÖPNV- und Breitbandausbau in ländlichen Gebieten</li>
+                <li><strong>Strukturwandel:</strong> Bewältigung des Kohleausstiegs in der Lausitz</li>
+            </ul>
+        </section>
+
+        <section id="fazit">
+            <h2><i class="fas fa-clipboard-check"></i> Fazit & Ausblick</h2>
+            
+            <h3>Zusammenfassung</h3>
+            <ul>
+                <li>Die Metropolregion Berlin-Brandenburg bleibt bis 2040+ eine "Dauerbaustelle"</li>
+                <li>Das Potenzial ist theoretisch nahezu unbegrenzt, aber durch Umsetzungsengpässe begrenzt</li>
+                <li>Erfolg hängt von der Lösung der Fachkräfte-, Material- und Bürokratieprobleme ab</li>
+                <li>Integrierte Planung zwischen Berlin und Brandenburg ist erforderlich</li>
+                <li>Chance für nachhaltige und innovative Stadt- und Regionalentwicklung</li>
+            </ul>
+            
+            <h3>Ausblick</h3>
+            <p>Die Region steht vor der einmaligen Chance, durch gezielte Investitionen in Wohnungsbau, Infrastruktur und Zukunftstechnologien eine nachhaltige und lebenswerte Metropolregion zu gestalten. Die enge Verzahnung von Berlin und Brandenburg wird dabei entscheidend für den Erfolg sein.</p>
+            
+            <div class="chart-container">
+                <h4>Zeitliche Entwicklung der Bauaktivitäten</h4>
+                <div class="chart-placeholder">
+                    [Hier würde ein Zeitstrahl mit den wichtigsten Meilensteinen erscheinen]
+                </div>
+                <p class="data-source">Quelle: Eigene Darstellung basierend auf Projektplanungen</p>
+            </div>
+        </section>
+
+        <section id="quellen">
+            <h2><i class="fas fa-book"></i> Quellen & Weiterführende Informationen</h2>
+            
+            <h3>Offizielle Quellen</h3>
+            <ul>
+                <li>Senatsverwaltung für Stadtentwicklung, Bauen und Wohnen Berlin: STEP Wohnen 2030</li>
+                <li>Berliner Wohnungsbauprogramm</li>
+                <li>i2030-Projekt (Deutsche Bahn, Berlin, Brandenburg)</li>
+                <li>Berliner Schulbauoffensive</li>
+                <li>Landesentwicklungsplan Brandenburg</li>
+                <li>Energiestrategie 2040 Brandenburg</li>
+                <li>Amt für Statistik Berlin-Brandenburg</li>
+            </ul>
+            
+            <h3>Wissenschaftliche Institute</h3>
+            <ul>
+                <li>Deutsches Institut für Urbanistik (DIFU)</li>
+                <li>Leibniz-Institut für Raumbezogene Sozialforschung (IRS)</li>
+                <li>Institut für Stadt- und Regionalplanung (TU Berlin)</li>
+                <li>Brandenburgische Technische Universität Cottbus-Senftenberg (BTU)</li>
+            </ul>
+            
+            <h3>Weiterführende Links</h3>
+            <ul>
+                <li><a href="https://www.stadtentwicklung.berlin.de/planen/stadtentwicklungsplanung/de/step_wonen/" target="_blank">STEP Wohnen Berlin</a></li>
+                <li><a href="https://i2030.de/" target="_blank">i2030 Schienenprogramm</a></li>
+                <li><a href="https://mil.brandenburg.de/mil/de/raumordnung/landesentwicklungsplan/" target="_blank">Landesentwicklungsplan Brandenburg</a></li>
+                <li><a href="https://schulbau.berlin.de/" target="_blank">Berliner Schulbauoffensive</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Baupotential Berlin & Brandenburg - Analyse 2024</p>
+            <p>Diese Seite bietet einen Überblick über die Bau- und Entwicklungspotenziale in der Hauptstadtregion.</p>
+            <p>Letzte Aktualisierung: Dezember 2024</p>
+        </div>
+    </footer>
+</body>
+</html>
